@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Filament\Actions\CreateAction;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,5 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        \Filament\Resources\Pages\CreateRecord::disableCreateAnother();
+        CreateAction::configureUsing(fn(CreateAction $action) => $action->createAnother(false));
     }
 }
