@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('votante_cadastrado')->default(false);
             $table->integer('votos_por_usuario')->default(1);
             $table->boolean('mostrar_resultados_apos_voto')->default(true);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

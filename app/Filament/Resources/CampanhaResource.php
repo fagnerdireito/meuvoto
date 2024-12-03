@@ -79,6 +79,10 @@ class CampanhaResource extends Resource
                 //
             ])
             ->actions([
+                // acessar url slug
+                Tables\Actions\Action::make('acessar')
+                    ->url(fn(Campanha $record) => route('campanha.show', $record->slug))
+                    ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

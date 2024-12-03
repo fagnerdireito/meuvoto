@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('cadastros', function (Blueprint $table) {
             $table->id();
-            $table->string('matricula');
             $table->string('nome');
-            $table->string('cpf');
-            $table->string('email');
-            $table->string('celular');
-            $table->string('endereco');
+            $table->string('matricula')->nullable();
+            $table->string('cpf')->nullable();
+            $table->string('email')->nullable();
+            $table->string('celular')->nullable();
+            $table->string('endereco')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

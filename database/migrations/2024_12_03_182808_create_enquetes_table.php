@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('campanha_id')->constrained('campanhas');
             $table->text('pergunta');
             $table->json('opcoes');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

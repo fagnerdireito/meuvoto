@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('voto')->default(false);
             $table->string('ip')->nullable();
             $table->string('navegador')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

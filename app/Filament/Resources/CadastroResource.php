@@ -26,6 +26,15 @@ class CadastroResource extends Resource
                 Forms\Components\TextInput::make('nome')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('matricula')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('cpf')
+                    ->maxLength(11),
+                Forms\Components\TextInput::make('email')
+                    ->email()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('celular')
+                    ->maxLength(20),
             ]);
     }
 
@@ -33,7 +42,11 @@ class CadastroResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('nome'),
+                Tables\Columns\TextColumn::make('matricula'),
+                Tables\Columns\TextColumn::make('cpf'),
+                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('celular'),
             ])
             ->filters([
                 //
