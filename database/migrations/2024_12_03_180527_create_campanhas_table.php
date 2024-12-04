@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('campanhas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
+            $table->string('logo')->nullable();
             $table->string('nome');
             $table->string('descricao');
             $table->string('slug')->unique();

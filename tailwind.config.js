@@ -1,21 +1,25 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
+import preset from './vendor/filament/support/tailwind.config.preset'
 
-/** @type {import('tailwindcss').Config} */
 export default {
+    presets: [preset],
     content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
+        './app/Filament/**/*.php',
         './resources/views/**/*.blade.php',
+        './vendor/filament/**/*.blade.php',
+        './app/Livewire/**/*.php',
+        './resources/views/filament/resources/**/*.blade.php',
+        './app/Filament/Resources/**/*.php',
+        './app/Filament/App/**/*.php',
+        './resources/views/filament/app/**/*.blade.php',
+        './vendor/filament/**/*.blade.php',
+        './resources/views/vendor/filament-forms/components/**',
+        './resources/views/vendor/filament-tables/components/**',
+        './resources/views/filament/app/pages/legado/**',
+        './resources/views/filament/app/pages/legado/**/*.blade.php',
+        './resources/views/filament/app/pages/**/*.blade.php',
+        './app/Filament/**/*.php',
+        './resources/css/filament/app/**/*.css',
+        './resources/views/filament/admin/**/*.blade.php',
+        './resources/views/livewire/**/*.blade.php',
     ],
-
-    theme: {
-        extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
-        },
-    },
-
-    plugins: [forms],
-};
+}

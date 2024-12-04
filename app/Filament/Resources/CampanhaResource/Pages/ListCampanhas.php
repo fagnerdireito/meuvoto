@@ -3,10 +3,11 @@
 namespace App\Filament\Resources\CampanhaResource\Pages;
 
 use App\Filament\Resources\CampanhaResource;
+use App\Models\Campanha;
 use Filament\Actions;
-use Filament\Resources\Pages\ManageRecords;
+use Filament\Resources\Pages\ListRecords;
 
-class ManageCampanhas extends ManageRecords
+class ListCampanhas extends ListRecords
 {
     protected static string $resource = CampanhaResource::class;
 

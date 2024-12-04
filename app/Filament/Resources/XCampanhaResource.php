@@ -2,22 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use AmidEsfahani\FilamentTinyEditor\TinyEditor;
-use App\Filament\Resources\CampanhaResource\Pages;
-use App\Filament\Resources\CampanhaResource\RelationManagers;
-use App\Models\Campanha;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Set;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Campanha;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Repeater;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
+use App\Filament\Resources\CampanhaResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\HtmlString;
+use App\Filament\Resources\CampanhaResource\RelationManagers;
 
-class CampanhaResource extends Resource
+class CampanhaResource_ extends Resource
 {
     protected static ?string $model = Campanha::class;
 
@@ -32,26 +29,18 @@ class CampanhaResource extends Resource
                 Forms\Components\TextInput::make('nome')
                     ->required()
                     ->autocomplete(false)
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', \Str::slug($state)))
                     ->maxLength(255),
                 Forms\Components\TextInput::make('descricao')
+                    ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('slug')
                     ->label('URL')
                     ->required()
                     ->maxLength(255),
-                // Forms\Components\Textarea::make('informacoes')
-                //     ->label('Informações / mural')
-                //     ->columnSpan(2)
-                //     ->required(),
-                TinyEditor::make('informacoes')
-                    ->fileAttachmentsDisk('public')
-                    ->fileAttachmentsVisibility('public')
-                    ->fileAttachmentsDirectory('uploads')
-                    // ->profile('default|simple|full|minimal|none|custom')
-                    ->profile('minimal')
-                    ->columnSpan('full'),
+                Forms\Components\Textarea::make('informacoes')
+                    ->label('Informações / mural')
+                    ->columnSpan(2)
+                    ->required(),
                 Forms\Components\DateTimePicker::make('data_inicio')
                     ->displayFormat('d/m/Y H:i')
                     ->native(false)
@@ -71,19 +60,14 @@ class CampanhaResource extends Resource
                     ->numeric(),
                 Forms\Components\Toggle::make('mostrar_resultados_apos_voto')
                     ->required(),
-                Forms\Components\Placeholder::make('enquetes_count')
-                    ->label('')
-                    ->columnSpanFull()
-                    ->content(fn() => new HtmlString('<hr>')),
-                Forms\Components\Repeater::make('enquetes')
+                Repeater::make('enquetes')
                     ->columnSpanFull()
                     ->relationship('enquetes')
-                    ->label('Enquetes')
                     ->schema([
                         Forms\Components\TextInput::make('pergunta')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\Repeater::make('opcoes')
+                        Repeater::make('opcoes')
                             ->schema([
                                 Forms\Components\TextInput::make('opcao')
                                     ->required()
@@ -109,15 +93,10 @@ class CampanhaResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make('resultados')
-                    ->color('warning')
-                    ->url(fn(Model $record) => route('filament.admin.resources.campanhas.resultados', $record))
-                    ->icon('heroicon-o-eye'),
+                // acessar url slug
                 Tables\Actions\Action::make('acessar')
                     ->url(fn(Campanha $record) => route('campanha.show', $record->slug))
-                    ->color('success')
-                    ->openUrlInNewTab()
-                    ->icon('heroicon-o-eye'),
+                    ->openUrlInNewTab(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -128,20 +107,10 @@ class CampanhaResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCampanhas::route('/'),
-            'create' => Pages\CreateCampanha::route('/create'),
-            'edit' => Pages\EditCampanha::route('/{record}/edit'),
-            'resultados' => Pages\Resultados::route('/{record}/resultados'),
+            'index' => Pages\ManageCampanhas::route('/'),
         ];
     }
 }

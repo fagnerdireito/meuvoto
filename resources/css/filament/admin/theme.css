@@ -1,0 +1,33 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+.fi-main {
+    @apply mb-52 !important;
+}
+
+@media print {
+    .fi-sidebar {
+        display: none;
+    }
+
+    .fi-wi-widget {
+        display: none;
+    }
+
+    .fi-body {
+        display: block !important;
+    }
+
+    .chart-container {
+        display: none;
+    }
+
+    .fi-main {
+        display: block !important;
+    }
+
+    .fi-modal-close-overlay {
+        opacity: 0 !important;
+    }
+}

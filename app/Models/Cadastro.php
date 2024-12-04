@@ -12,4 +12,9 @@ class Cadastro extends Model
     use SoftDeletes;
 
     protected $guarded = ['id'];
+
+    public function votos()
+    {
+        return $this->hasMany(Voto::class);
+    }
 }

@@ -19,6 +19,8 @@ return new class extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->string('pergunta')->nullable();
+            $table->string('resposta')->nullable();
             $table->boolean('voto')->default(false);
             $table->string('ip')->nullable();
             $table->string('navegador')->nullable();

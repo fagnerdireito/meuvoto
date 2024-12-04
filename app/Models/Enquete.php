@@ -15,6 +15,10 @@ class Enquete extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'opcoes' => 'array',
+    ];
+
     public function campanha(): BelongsTo
     {
         return $this->belongsTo(Campanha::class);
