@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Fagner Santos',
             'email' => 'admin@admin.com',
-            'password' => Hash::make('123456'),
+            'password' => Hash::make('meuvoto@2024'),
         ]);
 
         // seed cadastros
