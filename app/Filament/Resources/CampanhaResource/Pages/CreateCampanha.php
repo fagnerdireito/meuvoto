@@ -14,7 +14,6 @@ class CreateCampanha extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model
     {
-        dd($data);
         $record = new ($this->getModel())($data);
 
         if (
