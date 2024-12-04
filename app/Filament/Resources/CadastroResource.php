@@ -2,13 +2,16 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Imports\CadastroImporter;
 use App\Filament\Resources\CadastroResource\Pages;
 use App\Filament\Resources\CadastroResource\RelationManagers;
 use App\Models\Cadastro;
+use Filament\Actions\ImportAction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ImportAction as ActionsImportAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -42,11 +45,16 @@ class CadastroResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nome'),
-                Tables\Columns\TextColumn::make('matricula'),
-                Tables\Columns\TextColumn::make('cpf'),
+                Tables\Columns\TextColumn::make('nome')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('matricula')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('cpf')
+                    ->copyable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('email'),
-                Tables\Columns\TextColumn::make('celular'),
+                Tables\Columns\TextColumn::make('celular')
+                    ->searchable(),
             ])
             ->filters([
                 //
@@ -54,6 +62,11 @@ class CadastroResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+            ])
+            ->headerActions([
+                ActionsImportAction::make()
+                    ->label('Importar')
+                    ->importer(CadastroImporter::class)
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
